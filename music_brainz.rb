@@ -1,27 +1,41 @@
 require 'rbrainz'
+require 'active_support'
 
-class MusicBrainzClient
-  include MusicBrainz # from rbrainz gem
+# my MusicBrainz Wrapper
+module MB
+  class << self; attr_accessor :ws, :query; end
+  @ws = MusicBrainz::Webservice::Webservice.new :username => 'shngn1', :password => 'uv@Q*kc8'
+  @query = MusicBrainz::Webservice::Query.new @ws, :client_id => "Shngn1's rating sync tool"
 
-  def initialize(username, password)
-    @ws = Webservice::Webservice.new :username => username, :password => password
-    @query = Webservice::Query.new @ws, :client_id => "Shngn1's rating sync tool"
-  end
+  class Track
+    def initialize(mbid)
+      @mbid = MusicBrainz::Model::MBID.new mbid, :track
+      @attributes = {}
+    end
 
-  def track_rating(mbid)
-    # todo cache the mbid in a LRU cache
-    mbid = Model::MBID.new mbid, :track
-    @query.get_user_rating(mbid).value
-  end
+    def rating
+      @attributes[:rating] ||= MB.query.get_user_rating(@mbid).value
+    end
 
-  # this is weird, two args?!
-  def track_rating=(mbid, rating)
-    mbid = Model::MBID.new mbid, :track
-    @query.submit_user_rating mbid, rating
+    def rating=(rating)
+      @attributes[:rating] = rating.to_f
+    end
+
+    def save
+      MB.query.submit_user_rating @mbid, @attributes[:rating]
+
+      true
+    end
+
+    def reload
+      @attributes.clear
+    end
   end
 end
 
-client = MusicBrainzClient.new 'shngn1', 'uv@Q*kc8'
-mbid = 'e4f9d618-61eb-491c-92fa-217551e402fe' # army reserve
+track = MB::Track.new 'e4f9d618-61eb-491c-92fa-217551e402fe' # army reserve
+puts track.rating
+track.rating = 5
+puts track.rating
+track.save
 
-puts client.track_rating mbid

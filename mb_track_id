@@ -56,7 +56,7 @@ class EyeD3Driver:
         self.tag = self.audioFile.getTag();
       else:
         self.tag = eyeD3.Tag();
-        if not self.tag.link(f, self.opts.tagVersion):
+        if not self.tag.link(f, eyeD3.ID3_ANY_VERSION):
           self.tag = None;
     except (eyeD3.tag.InvalidAudioFormatException,
           eyeD3.tag.TagException, IOError), ex:
@@ -65,26 +65,22 @@ class EyeD3Driver:
 
     if not self.tag:
       sys.stderr.write("No ID3 %s tag found!\n" %\
-              eyeD3.utils.versionToString(self.opts.tagVersion));
+              eyeD3.utils.versionToString(eyeD3.ID3_ANY_VERSION));
 
     try:
-      self.printTag(self.tag);
+      if isinstance(self.tag, eyeD3.Tag):
+        # UFID
+        unique_file_ids = self.tag.getUniqueFileIDs();
+        if unique_file_ids:
+           for ufid in unique_file_ids:
+              sys.stdout.write("%s [%s] %s\n" % (f, ufid.owner_id, ufid.id));
+      else:
+        raise TypeError("Unknown tag type: " + str(type(tag)));
     except (UnicodeEncodeError, UnicodeDecodeError), ex:
       sys.stderr.write(ex + '\n');
       return False
 
     return True
-
-  def printTag(self, tag):
-    if isinstance(tag, eyeD3.Tag):
-      # UFID
-      unique_file_ids = tag.getUniqueFileIDs();
-      if unique_file_ids:
-         for ufid in unique_file_ids:
-            sys.stdout.write("%s [%s] %s\n" % ("Unique File ID:",
-                            ufid.owner_id, ufid.id));
-    else:
-      raise TypeError("Unknown tag type: " + str(type(tag)));
 
 def main():
   (options, args) = getOptionParser().parse_args();

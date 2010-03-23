@@ -28,83 +28,84 @@ from eyeD3.utils import *;
 ENCODING = locale.getpreferredencoding();
 
 def getOptionParser():
-   versionStr = \
+  versionStr = \
 """mb_track_id - print musicbrainz track uuid for mp3 files
 Run with --help/-h for usage information
 """
 
-   usageStr = "%prog [OPTS] file [file...]";
-   optParser = OptionParser(usage=usageStr)
-   optParser.disable_interspersed_args();
+  usageStr = "%prog [OPTS] file [file...]";
+  optParser = OptionParser(usage=usageStr)
+  optParser.disable_interspersed_args();
 
-   # Misc. options.
-   misc = OptionGroup(optParser, "Misc. Options");
-   misc.add_option("--debug", action="store_true", dest="debug",
-                   help="Trace program execution.");
-   optParser.add_option_group(misc);
+  # Misc. options.
+  misc = OptionGroup(optParser, "Misc. Options");
+  misc.add_option("--debug", action="store_true", dest="debug",
+             help="Trace program execution.");
+  optParser.add_option_group(misc);
 
-   return optParser;
+  return optParser;
 
 class EyeD3Driver:
-   def handleFile(self, f):
-      self.audioFile = None;
-      self.tag = None;
+  def handleFile(self, f):
+    self.audioFile = None;
+    self.tag = None;
 
-      try:
-         if eyeD3.tag.isMp3File(f):
-            self.audioFile = eyeD3.tag.Mp3AudioFile(f)
-            self.tag = self.audioFile.getTag();
-         else:
-            self.tag = eyeD3.Tag();
-            if not self.tag.link(f, self.opts.tagVersion):
-               self.tag = None;
-      except (eyeD3.tag.InvalidAudioFormatException,
-              eyeD3.tag.TagException, IOError), ex:
-         sys.stderr.write(ex + '\n');
-         return False
-
-      if not self.tag:
-         sys.stderr.write("No ID3 %s tag found!\n" %\
-                    eyeD3.utils.versionToString(self.opts.tagVersion));
-
-      try:
-         self.printTag(self.tag);
-      except (UnicodeEncodeError, UnicodeDecodeError), ex:
-         sys.stderr.write(ex + '\n');
-         return False
-
-      return True
-
-   def printTag(self, tag):
-      if isinstance(tag, eyeD3.Tag):
-         # UFID
-         unique_file_ids = tag.getUniqueFileIDs();
-         if unique_file_ids:
-             for ufid in unique_file_ids:
-                 sys.stdout.write("%s [%s] %s\n" % ("Unique File ID:",
-                                          ufid.owner_id, ufid.id));
+    try:
+      if eyeD3.tag.isMp3File(f):
+        self.audioFile = eyeD3.tag.Mp3AudioFile(f)
+        self.tag = self.audioFile.getTag();
       else:
-         raise TypeError("Unknown tag type: " + str(type(tag)));
+        self.tag = eyeD3.Tag();
+        if not self.tag.link(f, self.opts.tagVersion):
+          self.tag = None;
+    except (eyeD3.tag.InvalidAudioFormatException,
+          eyeD3.tag.TagException, IOError), ex:
+      sys.stderr.write(ex + '\n');
+      return False
+
+    if not self.tag:
+      sys.stderr.write("No ID3 %s tag found!\n" %\
+              eyeD3.utils.versionToString(self.opts.tagVersion));
+
+    try:
+      self.printTag(self.tag);
+    except (UnicodeEncodeError, UnicodeDecodeError), ex:
+      sys.stderr.write(ex + '\n');
+      return False
+
+    return True
+
+  def printTag(self, tag):
+    if isinstance(tag, eyeD3.Tag):
+      # UFID
+      unique_file_ids = tag.getUniqueFileIDs();
+      if unique_file_ids:
+         for ufid in unique_file_ids:
+            sys.stdout.write("%s [%s] %s\n" % ("Unique File ID:",
+                            ufid.owner_id, ufid.id));
+    else:
+      raise TypeError("Unknown tag type: " + str(type(tag)));
 
 def main():
-   (options, args) = getOptionParser().parse_args();
-   app = EyeD3Driver()
+  (options, args) = getOptionParser().parse_args();
+  app = EyeD3Driver()
 
-   retval = 0
+  retval = 0
 
-   # Process files/directories
-   for f in args:
-      if os.path.isfile(f):
-         retval = app.handleFile(f);
-      elif os.path.isdir(f):
-         fwalker = FileWalker(app, f);
-         retval = fwalker.go();
-      else:
-         sys.stderr.write("File Not Found: %s\n" % f);
-         retval = 1;
+  # Process files/directories
+  for f in args:
+    if os.path.isfile(f):
+      retval = app.handleFile(f);
+    elif os.path.isdir(f):
+      fwalker = FileWalker(app, f);
+      retval = fwalker.go();
+    else:
+      sys.stderr.write("File Not Found: %s\n" % f);
+      retval = 1;
 
-   return retval;
+  return retval;
 
 #######################################################################
 if __name__ == "__main__":
-   sys.exit(main())
+  sys.exit(main())
+

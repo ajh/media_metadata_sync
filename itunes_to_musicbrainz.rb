@@ -53,7 +53,13 @@ end
 
 # upload ratings to musicbrainz
 ratings.each do |path, info|
-  track = MB::Track.new info[:uuid]
+  begin
+    track = MB::Track.new info[:uuid]
+  rescue ArgumentError
+  end
+
+  track or next
+
   track.rating = info[:rating]
   puts "saving #{track.inspect}"
   track.save

@@ -9,7 +9,7 @@ module MB
 
   class Track
     def initialize(mbid)
-      mbid.present? or raise ArgumentError('mbid is required')
+      mbid.present? or raise ArgumentError.new('mbid is required')
 
       @mbid = MusicBrainz::Model::MBID.new mbid, :track
       @attributes = {}

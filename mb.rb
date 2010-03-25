@@ -9,6 +9,8 @@ module MB
 
   class Track
     def initialize(mbid)
+      mbid.present? or raise ArgumentError('mbid is required')
+
       @mbid = MusicBrainz::Model::MBID.new mbid, :track
       @attributes = {}
     end
@@ -29,6 +31,10 @@ module MB
 
     def reload
       @attributes.clear
+    end
+
+    def inspect
+      "#<#{self.class.to_s} mbid:#{@mbid.inspect} attributes:#{@attributes.inspect}>"
     end
   end
 end

@@ -62,7 +62,11 @@ ratings.each do |path, info|
 
   track.rating = info[:rating]
   puts "saving #{track.inspect}"
-  track.save
+  begin
+    track.save
+  rescue MusicBrainz::Webservice::RequestError => e
+    warn e.inspect
+  end
 
   sleep 1 # be nice if MB took care of this
 end

@@ -18,6 +18,8 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency "rb-appscript"
   s.add_runtime_dependency "activesupport"
+  s.add_runtime_dependency "sqlite3"
 
   s.add_development_dependency "rspec"
+  s.add_development_dependency "autotest-standalone"
 end

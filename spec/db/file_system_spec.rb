@@ -1,6 +1,21 @@
 require 'helper'
 
 describe MediaMetadataSync::DB::FileSystem do
+  describe "#initialize" do
+    it "should take a root path" do
+      f = described_class.new 'a/library/path'
+      f.root_path.should == Pathname.new('a/library/path')
+    end
+  end
+
+  describe "#read" do
+    it "should add records to the queue" do
+      pending 'a working taglib client'
+      f = described_class.new Pathname.new(__FILE__).dirname.join('../files')
+      f.read Queue.new
+    end
+  end
+
   describe ".uuids_of_paths" do
     it "should return a hash of uuids for passed paths" do
       described_class.stub(:shell) do

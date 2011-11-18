@@ -1,9 +1,36 @@
 require 'active_support'
 require 'shellwords'
+PLATFORM = RUBY_PLATFORM
+require 'tagfile'
+
 
 module MediaMetadataSync
   module DB
-    module FileSystem
+
+    # Read and write metadata to files on a filesystem. For example:
+    #
+    # fs = MediaMetadataSync::DB::FileSystem.new '~/Music/Library'
+    #
+    # q = Queue.new
+    # fs.read q # will add to the queue Records for each media file found inside ~/Music/Library
+    #
+    # q2 = ... # get a queue of Records from somewhere
+    # fs.write q # write out any metadata changes to the files on disk
+    class FileSystem
+      attr_reader :root_path
+
+      # Create a filesystem "database" with a root path of the given directory.
+      def initialize(root_path)
+        @root_path = Pathname.new root_path
+      end
+
+      def read(queue)
+        Dir.glob @root_path.join("**/*.mp3") do |path|
+          tags = TagFile::File.new path
+          puts tags.inspect
+        end
+      end
+
       VENDOR = File.expand_path(File.dirname(__FILE__) + "/../../vendor").inspect
       PATH_BATCH_SIZE=1000
 

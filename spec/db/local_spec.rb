@@ -1,7 +1,7 @@
 require 'helper'
 require 'tempfile'
 
-describe MediaMetadataSync::Source::Local do
+describe MediaMetadataSync::DB::Local do
   describe "initialize" do
     it "should create a database" do
       begin

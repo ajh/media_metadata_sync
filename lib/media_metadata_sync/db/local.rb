@@ -1,7 +1,7 @@
 require "sqlite3"
 
 module MediaMetadataSync
-  module Source
+  module DB
     # a local sqlite database
     class Local
       def initialize(db_name="test.db")

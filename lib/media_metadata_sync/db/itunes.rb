@@ -2,7 +2,7 @@ require 'appscript'
 require 'thread'
 
 module MediaMetadataSync
-  module Source
+  module DB
     module ITunes
 
       # Reads the iTunes database and writes records to the Queue. Returns true

@@ -1,6 +1,6 @@
 require 'helper'
 
-describe MediaMetadataSync::Source::FileSystem do
+describe MediaMetadataSync::DB::FileSystem do
   describe ".uuids_of_paths" do
     it "should return a hash of uuids for passed paths" do
       described_class.stub(:shell) do

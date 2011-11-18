@@ -2,7 +2,7 @@ require 'active_support'
 require 'shellwords'
 
 module MediaMetadataSync
-  module Source
+  module DB
     module FileSystem
       VENDOR = File.expand_path(File.dirname(__FILE__) + "/../../vendor").inspect
       PATH_BATCH_SIZE=1000

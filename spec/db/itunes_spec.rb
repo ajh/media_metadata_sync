@@ -1,6 +1,6 @@
 require 'helper'
 
-describe MediaMetadataSync::Source::ITunes do
+describe MediaMetadataSync::DB::ITunes do
   describe "read" do
     it "should do something painful" do
       pending 'stubbing of apple script'

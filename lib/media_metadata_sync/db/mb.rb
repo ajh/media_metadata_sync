@@ -1,6 +1,6 @@
 require 'rbrainz'
 
-module Source
+module DB
   # my MusicBrainz Wrapper
   module MB
     class << self; attr_accessor :ws, :query; end

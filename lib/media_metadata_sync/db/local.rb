@@ -15,6 +15,7 @@ module MediaMetadataSync
           create table recordings (
             album_rating int,
             location varchar,
+            music_brainz_id varchar,
             name varchar,
             rating int
           );
@@ -22,7 +23,7 @@ module MediaMetadataSync
       end
 
       INSERT_SQL = <<-SQL
-        insert into recordings values (?, ?, ?, ?)
+        insert into recordings values (:album_rating, :location, :music_brainz_id, :name, :rating)
       SQL
 
       def write(queue)
@@ -30,7 +31,7 @@ module MediaMetadataSync
           value = queue.shift
           case value
           when MediaMetadataSync::Record
-            @db.execute INSERT_SQL, value.values
+            @db.execute INSERT_SQL, value.to_hash
           when "alldone"
             break
           end

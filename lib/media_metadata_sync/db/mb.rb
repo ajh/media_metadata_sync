@@ -1,4 +1,5 @@
 require 'rbrainz'
+# use musicbrainz-ruby instead for api v2.0
 
 module DB
   # my MusicBrainz Wrapper

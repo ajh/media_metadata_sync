@@ -41,7 +41,7 @@ describe MediaMetadataSync::DB::Local do
       begin
         local = described_class.new 'some_db.db'
         db = local.instance_variable_get '@db'
-        db.execute("insert into recordings values (?,?,?,?)", nil, nil, "some name", 50)
+        db.execute("insert into recordings values (:album_rating, :location, :music_brainz_id, :name, :rating)", :name => "some name", :rating => 50)
 
         q = Queue.new
         local.read q

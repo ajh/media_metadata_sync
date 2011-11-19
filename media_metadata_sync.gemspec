@@ -16,10 +16,18 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency "rb-appscript"
-  s.add_runtime_dependency "activesupport"
   s.add_runtime_dependency "sqlite3"
-  #s.add_runtime_dependency "rtaglib"
+  s.add_runtime_dependency "activesupport"
+  s.add_runtime_dependency "configuration"
+
+  # for itunes integration
+  s.add_runtime_dependency "rb-appscript"
+
+  # for musicbrainz integration
+  s.add_runtime_dependency "musicbrainz-ruby"
+  # musicbrainz-ruby should have required these itself
+  s.add_runtime_dependency 'httparty', '~> 0.7.3'
+  s.add_runtime_dependency 'hashie', '~> 1.0'
 
   s.add_development_dependency "rspec"
   s.add_development_dependency "autotest-standalone"

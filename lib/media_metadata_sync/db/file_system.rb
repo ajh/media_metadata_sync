@@ -1,7 +1,7 @@
 require 'active_support'
 require 'shellwords'
-PLATFORM = RUBY_PLATFORM
-require 'tagfile'
+#PLATFORM = RUBY_PLATFORM
+#require 'tagfile'
 
 
 module MediaMetadataSync

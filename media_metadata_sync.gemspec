@@ -24,10 +24,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "rb-appscript"
 
   # for musicbrainz integration
-  s.add_runtime_dependency "musicbrainz-ruby"
-  # musicbrainz-ruby should have required these itself
-  s.add_runtime_dependency 'httparty', '~> 0.7.3'
-  s.add_runtime_dependency 'hashie', '~> 1.0'
+  s.add_runtime_dependency 'httparty'#, '~> 0.7.3'
+  s.add_runtime_dependency 'hashie'#, '~> 1.0'
 
   s.add_development_dependency "rspec"
   s.add_development_dependency "autotest-standalone"

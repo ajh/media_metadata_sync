@@ -34,6 +34,16 @@ module MediaMetadataSync
       ensure
         queue << 'alldone'
       end
+
+      def write(queue)
+        while (record = queue.shift) != 'alldone' do
+          track = @app.file_tracks[Appscript.its.persistent_ID.eq(record[:itunes_persistent_id])]
+          track or next
+
+          track.name.set record[:name]
+          track.rating.set record[:rating]
+        end
+      end
     end
   end
 end

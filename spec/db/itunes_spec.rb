@@ -9,6 +9,20 @@ describe MediaMetadataSync::DB::ITunes do
   end
 
   if using_test_itunes_library?
+    after do
+      # Ideally I'd copy the library to a tmp dir and point itunes to that.
+      #
+      # But since I can't control which library itunes uses, this is the poor
+      # man's version.
+
+      # quit itunes and wait
+      system %q(echo "tell application \"iTunes\" to quit" | osascript)
+      sleep 2
+
+      # refresh library
+      system "rm -rf spec/files/itunes_library && git checkout -- spec/files/itunes_library"
+    end
+
     describe "read" do
       it "should add records to the queue" do
         itunes = described_class.new
@@ -36,6 +50,32 @@ describe MediaMetadataSync::DB::ITunes do
         wws.album_rating.should == 80
 
         q.shift(true).should == 'alldone'
+      end
+    end
+
+    describe "write" do
+      it "should update records in library" do
+        itunes = described_class.new
+        q = Queue.new
+
+        #record = MediaMetadataSync::Record.new
+        #record.name = 'Pail Mail'
+        #record.rating = 60
+
+        record = {
+          :name => 'Pail Mail',
+          :rating => 60,
+          :itunes_persistent_id => '028DA9DC75BAA710',
+        }
+
+        q << record
+        q << 'alldone'
+
+        itunes.write q
+
+        app = Appscript.app('iTunes')
+        app.file_tracks[3].name.get.should == 'Pail Mail'
+        app.file_tracks[3].rating.get.should == 60
       end
     end
 

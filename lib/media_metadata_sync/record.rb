@@ -3,6 +3,7 @@ module MediaMetadataSync
     :album_rating,
     :location,
     :music_brainz_id,
+    :itunes_id,
     :name,
     :rating)
 

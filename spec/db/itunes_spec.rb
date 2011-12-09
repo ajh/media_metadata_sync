@@ -58,15 +58,10 @@ describe MediaMetadataSync::DB::ITunes do
         itunes = described_class.new
         q = Queue.new
 
-        #record = MediaMetadataSync::Record.new
-        #record.name = 'Pail Mail'
-        #record.rating = 60
-
-        record = {
-          :name => 'Pail Mail',
-          :rating => 60,
-          :itunes_persistent_id => '028DA9DC75BAA710',
-        }
+        record = MediaMetadataSync::Record.new
+        record.name = 'Pail Mail'
+        record.rating = 60
+        record.itunes_id = '028DA9DC75BAA710'
 
         q << record
         q << 'alldone'

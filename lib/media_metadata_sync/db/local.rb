@@ -28,10 +28,13 @@ module MediaMetadataSync
 
       def write(queue)
         loop do
-          value = queue.shift
-          case value
+          record = queue.shift
+          case record
           when MediaMetadataSync::Record
-            @db.execute INSERT_SQL, value.to_hash
+            values = record.to_hash.reject{|k,v| 
+              ![:album_rating, :location, :music_brainz_id, :name, :rating].include? k
+            }
+            @db.execute INSERT_SQL, values
           when "alldone"
             break
           end

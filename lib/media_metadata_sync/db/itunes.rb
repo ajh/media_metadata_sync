@@ -7,21 +7,31 @@ module MediaMetadataSync
         @app = Appscript.app('iTunes')
       end
 
+      # Here's a way to benchmark this method:
+      #
+      # time ruby -rrubygems -r /Users/ajh/devel/media_metadata_sync/lib/media_metadata_sync -e 'itunes = MediaMetadataSync::DB::ITunes.new; itunes.read(q = Queue.new); puts q.length'
       def read(queue)
-        records = {}
+        begin
 
-        # This assumes the order of track remains the same between applescript
-        # calls. It's also slow. Each field requires a separate traversal of
-        # the library. With 4 fields, thats O(4n) where n is the number of
-        # tracks in the library.
-        %w(album_rating rating location name).each do |attr|
-          @app.file_tracks.send(attr).get.each_with_index do |val, i|
-            (records[i] ||= Record.new).send "#{attr}=", val
+          i = 1
+          loop do
+            track = @app.file_tracks[i]
+
+            record = Record.new
+            record.name = track.name.get
+            record.rating = track.rating.get
+            record.album_rating = track.album_rating.get
+
+            queue << record
+
+            i += 1
           end
+
+        rescue Appscript::CommandError => e
+          e.message =~ %r/Can't get reference/ or raise
         end
 
-        records.each { |k,v| queue << v }
-
+      ensure
         queue << 'alldone'
       end
     end

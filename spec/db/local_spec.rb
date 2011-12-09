@@ -37,7 +37,7 @@ describe MediaMetadataSync::DB::Local do
   end
 
   describe "read" do
-    it "should queue with records" do
+    it "should add records to the queue" do
       begin
         local = described_class.new 'some_db.db'
         db = local.instance_variable_get '@db'

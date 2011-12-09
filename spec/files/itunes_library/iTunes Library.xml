@@ -4,7 +4,7 @@
 <dict>
 	<key>Major Version</key><integer>1</integer>
 	<key>Minor Version</key><integer>1</integer>
-	<key>Date</key><date>2011-12-09T00:06:14Z</date>
+	<key>Date</key><date>2011-12-09T00:33:20Z</date>
 	<key>Application Version</key><string>10.5.1</string>
 	<key>Features</key><integer>5</integer>
 	<key>Show Content Ratings</key><true/>
@@ -12,9 +12,9 @@
 	<key>Library Persistent ID</key><string>21EC83C639D7DAC0</string>
 	<key>Tracks</key>
 	<dict>
-		<key>11848</key>
+		<key>75</key>
 		<dict>
-			<key>Track ID</key><integer>11848</integer>
+			<key>Track ID</key><integer>75</integer>
 			<key>Name</key><string>Wash</string>
 			<key>Artist</key><string>Pearl Jam</string>
 			<key>Album</key><string>The Gorge Amphitheatre George, WA 22July06</string>
@@ -30,6 +30,9 @@
 			<key>Date Added</key><date>2011-12-09T00:06:02Z</date>
 			<key>Bit Rate</key><integer>256</integer>
 			<key>Sample Rate</key><integer>44100</integer>
+			<key>Rating</key><integer>40</integer>
+			<key>Album Rating</key><integer>80</integer>
+			<key>Album Rating Computed</key><true/>
 			<key>Sort Album</key><string>Gorge Amphitheatre George, WA 22July06</string>
 			<key>Persistent ID</key><string>9A06081A54F01023</string>
 			<key>Track Type</key><string>File</string>
@@ -37,9 +40,9 @@
 			<key>File Folder Count</key><integer>5</integer>
 			<key>Library Folder Count</key><integer>1</integer>
 		</dict>
-		<key>11853</key>
+		<key>77</key>
 		<dict>
-			<key>Track ID</key><integer>11853</integer>
+			<key>Track ID</key><integer>77</integer>
 			<key>Name</key><string>Corduroy</string>
 			<key>Artist</key><string>Pearl Jam</string>
 			<key>Album</key><string>The Gorge Amphitheatre George, WA 22July06</string>
@@ -55,6 +58,9 @@
 			<key>Date Added</key><date>2011-12-09T00:06:02Z</date>
 			<key>Bit Rate</key><integer>256</integer>
 			<key>Sample Rate</key><integer>44100</integer>
+			<key>Rating</key><integer>60</integer>
+			<key>Album Rating</key><integer>80</integer>
+			<key>Album Rating Computed</key><true/>
 			<key>Sort Album</key><string>Gorge Amphitheatre George, WA 22July06</string>
 			<key>Persistent ID</key><string>5D732057B0A1D6CD</string>
 			<key>Track Type</key><string>File</string>
@@ -62,9 +68,9 @@
 			<key>File Folder Count</key><integer>5</integer>
 			<key>Library Folder Count</key><integer>1</integer>
 		</dict>
-		<key>11856</key>
+		<key>79</key>
 		<dict>
-			<key>Track ID</key><integer>11856</integer>
+			<key>Track ID</key><integer>79</integer>
 			<key>Name</key><string>Hail Hail</string>
 			<key>Artist</key><string>Pearl Jam</string>
 			<key>Album</key><string>The Gorge Amphitheatre George, WA 22July06</string>
@@ -80,6 +86,9 @@
 			<key>Date Added</key><date>2011-12-09T00:06:02Z</date>
 			<key>Bit Rate</key><integer>256</integer>
 			<key>Sample Rate</key><integer>44100</integer>
+			<key>Rating</key><integer>80</integer>
+			<key>Album Rating</key><integer>80</integer>
+			<key>Album Rating Computed</key><true/>
 			<key>Sort Album</key><string>Gorge Amphitheatre George, WA 22July06</string>
 			<key>Persistent ID</key><string>028DA9DC75BAA710</string>
 			<key>Track Type</key><string>File</string>
@@ -87,9 +96,9 @@
 			<key>File Folder Count</key><integer>5</integer>
 			<key>Library Folder Count</key><integer>1</integer>
 		</dict>
-		<key>11859</key>
+		<key>81</key>
 		<dict>
-			<key>Track ID</key><integer>11859</integer>
+			<key>Track ID</key><integer>81</integer>
 			<key>Name</key><string>World Wide Suicide</string>
 			<key>Artist</key><string>Pearl Jam</string>
 			<key>Album</key><string>The Gorge Amphitheatre George, WA 22July06</string>
@@ -105,6 +114,9 @@
 			<key>Date Added</key><date>2011-12-09T00:06:02Z</date>
 			<key>Bit Rate</key><integer>256</integer>
 			<key>Sample Rate</key><integer>44100</integer>
+			<key>Rating</key><integer>100</integer>
+			<key>Album Rating</key><integer>80</integer>
+			<key>Album Rating Computed</key><true/>
 			<key>Sort Album</key><string>Gorge Amphitheatre George, WA 22July06</string>
 			<key>Persistent ID</key><string>1CAEEA11013E8391</string>
 			<key>Track Type</key><string>File</string>
@@ -118,29 +130,29 @@
 		<dict>
 			<key>Name</key><string>Library</string>
 			<key>Master</key><true/>
-			<key>Playlist ID</key><integer>73</integer>
+			<key>Playlist ID</key><integer>83</integer>
 			<key>Playlist Persistent ID</key><string>D126684A89855063</string>
 			<key>Visible</key><false/>
 			<key>All Items</key><true/>
 			<key>Playlist Items</key>
 			<array>
 				<dict>
-					<key>Track ID</key><integer>11848</integer>
+					<key>Track ID</key><integer>75</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11853</integer>
+					<key>Track ID</key><integer>77</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11856</integer>
+					<key>Track ID</key><integer>79</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11859</integer>
+					<key>Track ID</key><integer>81</integer>
 				</dict>
 			</array>
 		</dict>
 		<dict>
 			<key>Name</key><string>Music</string>
-			<key>Playlist ID</key><integer>110</integer>
+			<key>Playlist ID</key><integer>134</integer>
 			<key>Playlist Persistent ID</key><string>E4CF1172CBB313FB</string>
 			<key>Distinguished Kind</key><integer>4</integer>
 			<key>Music</key><true/>
@@ -148,22 +160,22 @@
 			<key>Playlist Items</key>
 			<array>
 				<dict>
-					<key>Track ID</key><integer>11848</integer>
+					<key>Track ID</key><integer>75</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11853</integer>
+					<key>Track ID</key><integer>77</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11856</integer>
+					<key>Track ID</key><integer>79</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11859</integer>
+					<key>Track ID</key><integer>81</integer>
 				</dict>
 			</array>
 		</dict>
 		<dict>
 			<key>Name</key><string>Movies</string>
-			<key>Playlist ID</key><integer>113</integer>
+			<key>Playlist ID</key><integer>141</integer>
 			<key>Playlist Persistent ID</key><string>29E118F8292D0695</string>
 			<key>Distinguished Kind</key><integer>2</integer>
 			<key>Movies</key><true/>
@@ -171,7 +183,7 @@
 		</dict>
 		<dict>
 			<key>Name</key><string>TV Shows</string>
-			<key>Playlist ID</key><integer>116</integer>
+			<key>Playlist ID</key><integer>144</integer>
 			<key>Playlist Persistent ID</key><string>214A7050BE621C07</string>
 			<key>Distinguished Kind</key><integer>3</integer>
 			<key>TV Shows</key><true/>
@@ -179,14 +191,14 @@
 		</dict>
 		<dict>
 			<key>Name</key><string>Genius</string>
-			<key>Playlist ID</key><integer>128</integer>
+			<key>Playlist ID</key><integer>156</integer>
 			<key>Playlist Persistent ID</key><string>E8570166D70747A1</string>
 			<key>Distinguished Kind</key><integer>26</integer>
 			<key>All Items</key><true/>
 		</dict>
 		<dict>
 			<key>Name</key><string>iTunes DJ</string>
-			<key>Playlist ID</key><integer>97</integer>
+			<key>Playlist ID</key><integer>115</integer>
 			<key>Playlist Persistent ID</key><string>67DD697EC396126E</string>
 			<key>Distinguished Kind</key><integer>22</integer>
 			<key>Party Shuffle</key><true/>
@@ -194,28 +206,28 @@
 			<key>Playlist Items</key>
 			<array>
 				<dict>
-					<key>Track ID</key><integer>11848</integer>
+					<key>Track ID</key><integer>75</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11848</integer>
+					<key>Track ID</key><integer>75</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11848</integer>
+					<key>Track ID</key><integer>75</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11848</integer>
+					<key>Track ID</key><integer>75</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11848</integer>
+					<key>Track ID</key><integer>75</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11848</integer>
+					<key>Track ID</key><integer>75</integer>
 				</dict>
 			</array>
 		</dict>
 		<dict>
 			<key>Name</key><string>90’s Music</string>
-			<key>Playlist ID</key><integer>76</integer>
+			<key>Playlist ID</key><integer>90</integer>
 			<key>Playlist Persistent ID</key><string>3C1B97BF380489D9</string>
 			<key>Distinguished Kind</key><integer>200</integer>
 			<key>All Items</key><true/>
@@ -244,7 +256,7 @@
 		</dict>
 		<dict>
 			<key>Name</key><string>Classical Music</string>
-			<key>Playlist ID</key><integer>94</integer>
+			<key>Playlist ID</key><integer>112</integer>
 			<key>Playlist Persistent ID</key><string>C1B65C51B3EE3218</string>
 			<key>Distinguished Kind</key><integer>206</integer>
 			<key>All Items</key><true/>
@@ -298,7 +310,7 @@
 		</dict>
 		<dict>
 			<key>Name</key><string>Music Videos</string>
-			<key>Playlist ID</key><integer>91</integer>
+			<key>Playlist ID</key><integer>109</integer>
 			<key>Playlist Persistent ID</key><string>C7412205835DB4E5</string>
 			<key>Distinguished Kind</key><integer>205</integer>
 			<key>All Items</key><true/>
@@ -319,7 +331,7 @@
 		</dict>
 		<dict>
 			<key>Name</key><string>My Top Rated</string>
-			<key>Playlist ID</key><integer>79</integer>
+			<key>Playlist ID</key><integer>93</integer>
 			<key>Playlist Persistent ID</key><string>B51012CFAEEF6FD3</string>
 			<key>Distinguished Kind</key><integer>201</integer>
 			<key>All Items</key><true/>
@@ -337,10 +349,19 @@
 			AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEAAAAAAAAADwAAAAAAAAAAAAAAAAAAAAB
 			AAAAAAAAADwAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 			</data>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key><integer>81</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>79</integer>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>Name</key><string>Recently Added</string>
-			<key>Playlist ID</key><integer>88</integer>
+			<key>Playlist ID</key><integer>102</integer>
 			<key>Playlist Persistent ID</key><string>51F4EDEA8F96B3C3</string>
 			<key>Distinguished Kind</key><integer>204</integer>
 			<key>All Items</key><true/>
@@ -364,22 +385,22 @@
 			<key>Playlist Items</key>
 			<array>
 				<dict>
-					<key>Track ID</key><integer>11848</integer>
+					<key>Track ID</key><integer>75</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11853</integer>
+					<key>Track ID</key><integer>77</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11856</integer>
+					<key>Track ID</key><integer>79</integer>
 				</dict>
 				<dict>
-					<key>Track ID</key><integer>11859</integer>
+					<key>Track ID</key><integer>81</integer>
 				</dict>
 			</array>
 		</dict>
 		<dict>
 			<key>Name</key><string>Recently Played</string>
-			<key>Playlist ID</key><integer>85</integer>
+			<key>Playlist ID</key><integer>99</integer>
 			<key>Playlist Persistent ID</key><string>56079A910AD8168E</string>
 			<key>Distinguished Kind</key><integer>203</integer>
 			<key>All Items</key><true/>
@@ -403,7 +424,7 @@
 		</dict>
 		<dict>
 			<key>Name</key><string>Top 25 Most Played</string>
-			<key>Playlist ID</key><integer>82</integer>
+			<key>Playlist ID</key><integer>96</integer>
 			<key>Playlist Persistent ID</key><string>2B66B85BDBF27264</string>
 			<key>Distinguished Kind</key><integer>202</integer>
 			<key>All Items</key><true/>

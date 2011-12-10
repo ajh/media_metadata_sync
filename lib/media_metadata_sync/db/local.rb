@@ -17,24 +17,37 @@ module MediaMetadataSync
             location varchar,
             music_brainz_id varchar,
             name varchar,
-            rating int
+            rating int,
+            rated_at text
           );
         SQL
       end
 
       INSERT_SQL = <<-SQL
-        insert into recordings values (:album_rating, :location, :music_brainz_id, :name, :rating)
+        insert into recordings values (:album_rating, :location, :music_brainz_id, :name, :rating, :rated_at)
       SQL
+
+      COLUMNS = [:album_rating, :location, :music_brainz_id, :name, :rating, :rated_at].freeze
 
       def write(queue)
         loop do
           record = queue.shift
           case record
           when MediaMetadataSync::Record
-            values = record.to_hash.reject{|k,v| 
-              ![:album_rating, :location, :music_brainz_id, :name, :rating].include? k
-            }
+            values = record.members.inject({}) do |memo, field|
+              COLUMNS.include?(field) or next memo
+
+              if field.to_s =~ %r/_at$/ && record[field]
+                memo[field] = record[field].iso8601
+              else
+                memo[field] = record[field]
+              end
+
+              memo
+            end
+
             @db.execute INSERT_SQL, values
+
           when "alldone"
             break
           end
@@ -44,6 +57,7 @@ module MediaMetadataSync
       def read(queue)
         @db.execute("select * from recordings") do |row|
           r = Record.new row.reject{|k,v| !Record.members.map(&:to_s).include?(k)}
+          r.rated_at = Time.iso8601(r.rated_at) if r.rated_at
           queue << r
         end
 

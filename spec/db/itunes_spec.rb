@@ -12,7 +12,7 @@ describe MediaMetadataSync::DB::ITunes do
       described_class.any_instance.stub(:find_track_by_itunes_id => nil)
     end
 
-    it "should update a stale value with a fresh value" do
+    it "should update a stale rating with a fresh value" do
       fresh_time = 1.day.ago
       stale_time = 2.days.ago
 
@@ -33,7 +33,7 @@ describe MediaMetadataSync::DB::ITunes do
       itunes.write q
     end
 
-    it "should not update a fresh value with a stale value" do
+    it "should not update a fresh rating with a stale value" do
       fresh_time = 1.day.ago
       stale_time = 2.days.ago
 
@@ -54,7 +54,7 @@ describe MediaMetadataSync::DB::ITunes do
       itunes.write q
     end
 
-    it "should not update when incoming value has no time" do
+    it "should not update when incoming rating has no time" do
       fresh_time = 1.day.ago
       stale_time = 2.days.ago
 
@@ -73,7 +73,7 @@ describe MediaMetadataSync::DB::ITunes do
       itunes.write q
     end
 
-    it "should update when existing value has no time" do
+    it "should update when existing rating has no time" do
       @comment.stub :get => '', :set => true
       described_class.any_instance.stub(:find_track_by_itunes_id => @track)
       @rating.should_receive(:set).with(60).exactly(1).times
@@ -90,7 +90,7 @@ describe MediaMetadataSync::DB::ITunes do
       itunes.write q
     end
 
-    it "should update comments with dates when updating" do
+    it "should update comments with rating date when updating" do
       time = Time.now
 
       @comment.stub :get => ''

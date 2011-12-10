@@ -41,12 +41,28 @@ module MediaMetadataSync
       # * conflict resolution based on dates. Don't update things that are fresher in itunes than the queue.
       def write(queue)
         while (record = queue.shift) != 'alldone' do
-          track = @app.file_tracks[Appscript.its.persistent_ID.eq(record.itunes_id)]
+          track = find_track_by_itunes_id record.itunes_id
           track or next
 
-          track.name.set record.name
-          track.rating.set record.rating
+          comment = track.comment.get
+          dates = comment.present? ? YAML.load(comment) : {}
+          dirty = false
+
+          if record.rated_at && (!dates['rated_at'] || dates['rated_at'] < record.rated_at)
+            track.rating.set record.rating
+            dates['rated_at'] = record.rated_at
+            dirty = true
+          end
+
+          track.comment.set YAML.dump(dates) if dirty
         end
+      end
+
+      private
+
+      # A stubbing target that helps isolate the tests from appscript stuff
+      def find_track_by_itunes_id(id)
+        @app.file_tracks[Appscript.its.persistent_ID.eq(id)].first
       end
     end
   end

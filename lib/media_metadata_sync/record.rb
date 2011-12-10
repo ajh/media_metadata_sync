@@ -1,10 +1,12 @@
 module MediaMetadataSync
   class Record < Struct.new(
+    :album_rated_at,
     :album_rating,
+    :itunes_id,
     :location,
     :music_brainz_id,
-    :itunes_id,
     :name,
+    :rated_at,
     :rating)
 
     def initialize(options={})

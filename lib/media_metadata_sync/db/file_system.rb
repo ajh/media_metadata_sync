@@ -1,8 +1,4 @@
-require 'active_support'
 require 'shellwords'
-#PLATFORM = RUBY_PLATFORM
-#require 'tagfile'
-
 
 module MediaMetadataSync
   module DB
@@ -25,6 +21,8 @@ module MediaMetadataSync
       end
 
       def read(queue)
+        # Replace with this: requires eyeD3 and parallel which are both available to mac ports
+        # find spec/files/ -iname '*.mp3' -print0 | parallel --null --max-args 1 --max-procs 5 eyeD3
         Dir.glob @root_path.join("**/*.mp3") do |path|
           tags = TagFile::File.new path
           puts tags.inspect

@@ -31,12 +31,12 @@ find #{Shellwords.shellescape @root_path.to_s} -iname '*.mp3' -print0 | parallel
         IO.popen(cmd) do |io|
           parser = EyeD3Parser.new
 
-          while line = io.readline
+          while line = io.gets
             record = parser.readline line
             queue << record if record
           end
         end
-        queue << false
+        queue << 'alldone'
       end
 
       class EyeD3Parser
@@ -56,20 +56,18 @@ find #{Shellwords.shellescape @root_path.to_s} -iname '*.mp3' -print0 | parallel
             return last_record
 
           elsif line =~ /^title: (.*)\t\t/
+            flush_last_field
             @record[:name] = $1
 
           elsif line =~ /^Unique File ID: \[http:\/\/musicbrainz\.org\]\s*$/
-            puts -1
             flush_last_field
             @last_field = {:name => :music_brainz_id}
 
           elsif line =~ /^Unique File ID: \[http:\/\/musicbrainz\.org\] (.+)$/
-            puts 0
             flush_last_field
             @record[:music_brainz_id] = $1
 
-          else
-            puts 1
+          elsif @last_field
             @last_field[:value] ||= String.new
             @last_field[:value] += line
           end
@@ -81,7 +79,7 @@ find #{Shellwords.shellescape @root_path.to_s} -iname '*.mp3' -print0 | parallel
 
         def flush_last_field
           @last_field or return
-          puts 2
+
           @record[@last_field[:name]] = @last_field[:value].chomp
           @last_field = nil
         end

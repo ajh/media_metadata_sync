@@ -28,10 +28,10 @@ describe MediaMetadataSync::DB::FileSystem::EyeD3Parser do
       subject.readline "Unique File ID: [http://musicbrainz.org]\n"
       subject.readline "8bdf1863-26a3-450f-89af-3f5bf057a76e\n"
       record = subject.readline "===== a_path/another_file.mp3 =====\n"
-      puts record.inspect
       record.music_brainz_id.should == '8bdf1863-26a3-450f-89af-3f5bf057a76e'
     end
   end
+
 #===== spec/files/sample_file.mp3 =====
 
 #sample_file.mp3	[ 3.33 MB ]

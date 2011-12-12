@@ -15,17 +15,75 @@ module MediaMetadataSync
     class FileSystem
       attr_reader :root_path
 
+      EYED3_CMD="eyeD3".freeze # can add a custom path here
+      EYED3_MAX_PROCS="+0" # how many processes to use for eyed3 commands
+
       # Create a filesystem "database" with a root path of the given directory.
       def initialize(root_path)
         @root_path = Pathname.new root_path
       end
 
+      # Note: Requires eyeD3 and parallel which are both available to mac ports
       def read(queue)
-        # Replace with this: requires eyeD3 and parallel which are both available to mac ports
-        # find spec/files/ -iname '*.mp3' -print0 | parallel --null --max-args 1 --max-procs 5 eyeD3
-        Dir.glob @root_path.join("**/*.mp3") do |path|
-          tags = TagFile::File.new path
-          puts tags.inspect
+        cmd = <<-CMD
+find #{Shellwords.shellescape @root_path.to_s} -iname '*.mp3' -print0 | parallel --null --max-args 1 --max-procs #{EYED3_MAX_PROCS} sh -c \\"echo ===== {} =====\\; #{EYED3_CMD} --no-color {}\\"
+        CMD
+        IO.popen(cmd) do |io|
+          parser = EyeD3Parser.new
+
+          while line = io.readline
+            record = parser.readline line
+            queue << record if record
+          end
+        end
+        queue << false
+      end
+
+      class EyeD3Parser
+        def initialize
+          @record = @last_field = nil
+        end
+
+        # Pass input lines to be parsed. Returns a newly completed record, or
+        # nil.
+        #
+        # The parser maintains internal state of partially parsed records.
+        def readline(line)
+          if line =~ /^===== (.*) =====$/
+            flush_last_field
+            last_record = @record
+            @record = Record.new :location => Pathname.new($1)
+            return last_record
+
+          elsif line =~ /^title: (.*)\t\t/
+            @record[:name] = $1
+
+          elsif line =~ /^Unique File ID: \[http:\/\/musicbrainz\.org\]\s*$/
+            puts -1
+            flush_last_field
+            @last_field = {:name => :music_brainz_id}
+
+          elsif line =~ /^Unique File ID: \[http:\/\/musicbrainz\.org\] (.+)$/
+            puts 0
+            flush_last_field
+            @record[:music_brainz_id] = $1
+
+          else
+            puts 1
+            @last_field[:value] ||= String.new
+            @last_field[:value] += line
+          end
+
+          nil
+        end
+
+        private
+
+        def flush_last_field
+          @last_field or return
+          puts 2
+          @record[@last_field[:name]] = @last_field[:value].chomp
+          @last_field = nil
         end
       end
 

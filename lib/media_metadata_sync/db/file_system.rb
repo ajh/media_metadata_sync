@@ -67,6 +67,10 @@ find #{Shellwords.shellescape @root_path.to_s} -iname '*.mp3' -print0 | parallel
             flush_last_field
             @record[:music_brainz_id] = $1
 
+          elsif line =~ /^UserTextFrame: \[Description: mms_(\w+)\]$/
+            flush_last_field
+            @last_field = {:name => $1.to_s} if Record.members.map(&:to_s).include? $1
+
           elsif @last_field
             @last_field[:value] ||= String.new
             @last_field[:value] += line
@@ -80,7 +84,7 @@ find #{Shellwords.shellescape @root_path.to_s} -iname '*.mp3' -print0 | parallel
         def flush_last_field
           @last_field or return
 
-          @record[@last_field[:name]] = @last_field[:value].chomp
+          @record.send "#{@last_field[:name]}=", @last_field[:value].chomp
           @last_field = nil
         end
       end

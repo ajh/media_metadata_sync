@@ -30,6 +30,14 @@ describe MediaMetadataSync::DB::FileSystem::EyeD3Parser do
       record = subject.readline "===== a_path/another_file.mp3 =====\n"
       record.music_brainz_id.should == '8bdf1863-26a3-450f-89af-3f5bf057a76e'
     end
+
+    it "should set rating value" do
+      subject.readline "===== a_path/file.mp3 =====\n"
+      subject.readline "UserTextFrame: [Description: mms_rating]\n"
+      subject.readline "60\n"
+      record = subject.readline "===== a_path/another_file.mp3 =====\n"
+      record.rating.to_s.should == "60"
+    end
   end
 
 #===== spec/files/sample_file.mp3 =====

@@ -1,4 +1,5 @@
 require 'helper'
+require 'tmpdir'
 
 describe MediaMetadataSync::DB::FileSystem, :integration do
   context "when working against a real filesystem" do
@@ -30,6 +31,31 @@ describe MediaMetadataSync::DB::FileSystem, :integration do
         r = records.find{|r| r.name == 'World Wide Suicide'}
         r.location.should == mp3_dir.join('1-04 World Wide Suicide.mp3')
         r.music_brainz_id.should == '42777f0b-6084-4259-9aec-f2af2617cfed'
+      end
+    end
+
+    describe "#write" do
+      it "should update metadata" do
+        Dir.mktmpdir do |path|
+          path = Pathname.new path
+          FileUtils.cp Pathname.new(__FILE__).dirname.join('../files/sample_file.mp3'), path
+
+          time = 1.day.ago
+          record = MediaMetadataSync::Record.new \
+            :location => path.join('sample_file.mp3'),
+            :rating => 20,
+            :rated_at => time
+
+          q = Queue.new
+          q << record
+          q << 'alldone'
+
+          f = described_class.new path
+          f.write q
+
+          output = `eyeD3 --no-color #{Shellwords.shellescape path.join("sample_file.mp3").to_s}`
+          output.should match(/UserTextFrame: \[Description: mms_rating\]\n20 #{time.iso8601}/)
+        end
       end
     end
   end
